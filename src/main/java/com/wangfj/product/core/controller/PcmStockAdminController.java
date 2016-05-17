@@ -324,6 +324,11 @@ public class PcmStockAdminController extends BaseController {
                     tempDto.setSupplierCode(suppliers.getJSONObject(0).get("supplierCode") + "");
                     tempDto.setBrandName(obj.get("storeBrandName") + "");
                     tempDto.setBrandCode(obj.get("storeBrandCode") + "");
+
+                    tempDto.setSaleStock("0");
+                    tempDto.setEdefectiveStock("0");
+                    tempDto.setReturnStock("0");
+                    tempDto.setLockedStock("0");
                     if (stockList != null && stockList.size() > 0) {
                         for (SelectProductStockInfoDto stockDto : stockList) {
                             String stockDtoProductCode = stockDto.getProductCode();
@@ -352,18 +357,8 @@ public class PcmStockAdminController extends BaseController {
                                 } else {
                                     tempDto.setLockedStock("0");
                                 }
-                            } else {
-                                tempDto.setSaleStock("0");
-                                tempDto.setEdefectiveStock("0");
-                                tempDto.setReturnStock("0");
-                                tempDto.setLockedStock("0");
                             }
                         }
-                    } else {
-                        tempDto.setSaleStock("0");
-                        tempDto.setEdefectiveStock("0");
-                        tempDto.setReturnStock("0");
-                        tempDto.setLockedStock("0");
                     }
                     productStockDtoList.add(tempDto);
                 }
