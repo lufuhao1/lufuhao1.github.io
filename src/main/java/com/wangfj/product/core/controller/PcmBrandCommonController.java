@@ -2,6 +2,7 @@ package com.wangfj.product.core.controller;
 
 import com.wangfj.core.constants.ComErrorCodeConstants;
 import com.wangfj.core.framework.base.controller.BaseController;
+import com.wangfj.core.framework.exception.BleException;
 import com.wangfj.core.utils.ResultUtil;
 import com.wangfj.product.brand.service.intf.IPcmBrandCommonService;
 import com.wangfj.product.core.controller.support.PcmBrandValidationPara;
@@ -40,12 +41,20 @@ public class PcmBrandCommonController extends BaseController {
             Map<String, Object> paramMap = new HashMap<String, Object>();
             paramMap.put("brandName", para.getBrandName());
             if (brandType == Constants.PUBLIC_0) {
-                existence = brandCommonService.isBrandGroupExistence(paramMap);
+                try {
+                    existence = brandCommonService.isBrandGroupExistence(paramMap);
+                } catch (BleException ble) {
+                    return ResultUtil.creComErrorResult(ble.getCode(), ble.getMessage());
+                }
             }
             if (brandType == Constants.PUBLIC_1) {
                 Integer shopType = para.getShopType();
                 paramMap.put("shopType", shopType);
-                existence = brandCommonService.isBrandExistence(paramMap);
+                try {
+                    existence = brandCommonService.isBrandExistence(paramMap);
+                } catch (BleException ble) {
+                    return ResultUtil.creComErrorResult(ble.getCode(), ble.getMessage());
+                }
             }
             return ResultUtil.creComSucResult("");
         } else {
