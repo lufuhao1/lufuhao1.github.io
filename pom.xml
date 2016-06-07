@@ -17,7 +17,6 @@
 	<profiles>
 		<profile>
 			<id>dev</id>
-
 			<!-- 默认激活开发配制，使用config-dev.properties来替换设置过虑的资源文件中的${key} -->
 			<activation>
 				<activeByDefault>true</activeByDefault>
@@ -29,6 +28,9 @@
 					<filter>src/main/resources/env/dev/wfj-netty.properties</filter>
 				</filters>
 			</build>
+			<properties>
+				<resources.active>dev</resources.active>
+			</properties>
 		</profile>
 		<profile>
 			<id>sit</id>
@@ -39,6 +41,9 @@
 					<filter>src/main/resources/env/sit/wfj-netty.properties</filter>
 				</filters>
 			</build>
+			<properties>
+				<resources.active>sit</resources.active>
+			</properties>
 		</profile>
 		<profile>
 			<id>prd</id>
@@ -49,6 +54,9 @@
 					<filter>src/main/resources/env/prd/wfj-netty.properties</filter>
 				</filters>
 			</build>
+			<properties>
+				<resources.active>prd</resources.active>
+			</properties>
 		</profile>
 		<profile>
 			<id>pre</id>
@@ -59,9 +67,11 @@
 					<filter>src/main/resources/env/pre/wfj-netty.properties</filter>
 				</filters>
 			</build>
+			<properties>
+				<resources.active>pre</resources.active>
+			</properties>
 		</profile>
 	</profiles>
-
 	<dependencies>
 		<dependency>
 			<groupId>io.netty</groupId>
@@ -78,7 +88,7 @@
 			<artifactId>validation-api</artifactId>
 			<version>1.0.0.GA</version>
 		</dependency>
-		<dependency>
+		<!-- <dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
 			<version>2.5</version>
@@ -87,7 +97,7 @@
 			<groupId>javax.servlet</groupId>
 			<artifactId>jsp-api</artifactId>
 			<version>2.0</version>
-		</dependency>
+		</dependency> -->
 		<dependency>
 			<groupId>org.freemarker</groupId>
 			<artifactId>freemarker</artifactId>
@@ -113,11 +123,6 @@
 			<artifactId>spring-oxm</artifactId>
 			<version>4.1.4.RELEASE</version>
 		</dependency>
-		
-
-
-
-
 		<dependency>
 			<groupId>com.wfj.platform</groupId>
 			<artifactId>zk-util1.6</artifactId>
@@ -176,17 +181,8 @@
 			<version>${dependency.curator.version}</version>
 			<scope>compile</scope>
 		</dependency>
-		<!-- <dependency>
-			<groupId>org.apache.curator</groupId>
-			<artifactId>curator-x-rpc</artifactId>
-			<version>${dependency.curator.version}</version>
-			<scope>compile</scope>
-		</dependency> -->
-
-
-
-
-
+		<!-- <dependency> <groupId>org.apache.curator</groupId> <artifactId>curator-x-rpc</artifactId> 
+			<version>${dependency.curator.version}</version> <scope>compile</scope> </dependency> -->
 		<!-- <dependency> <groupId>com.wfj</groupId> <artifactId>netty-wfj-base-dev</artifactId> 
 			<version>1.0.1</version> <exclusions> <exclusion> <artifactId>slf4j-log4j12</artifactId> 
 			<groupId>org.slf4j</groupId> </exclusion> </exclusions> </dependency> -->
@@ -212,6 +208,9 @@
 					<include>wfj-netty.properties</include>
 				</includes>
 				<filtering>true</filtering>
+			</resource>
+			<resource>
+				<directory>src/main/resources/env/${resources.active}</directory>
 			</resource>
 		</resources>
 		<plugins>
