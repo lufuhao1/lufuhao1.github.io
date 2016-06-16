@@ -28,9 +28,6 @@
 					<filter>src/main/resources/env/dev/wfj-netty.properties</filter>
 				</filters>
 			</build>
-			<properties>
-				<resources.active>dev</resources.active>
-			</properties>
 		</profile>
 		<profile>
 			<id>sit</id>
@@ -41,9 +38,6 @@
 					<filter>src/main/resources/env/sit/wfj-netty.properties</filter>
 				</filters>
 			</build>
-			<properties>
-				<resources.active>sit</resources.active>
-			</properties>
 		</profile>
 		<profile>
 			<id>prd</id>
@@ -54,9 +48,6 @@
 					<filter>src/main/resources/env/prd/wfj-netty.properties</filter>
 				</filters>
 			</build>
-			<properties>
-				<resources.active>prd</resources.active>
-			</properties>
 		</profile>
 		<profile>
 			<id>pre</id>
@@ -67,9 +58,6 @@
 					<filter>src/main/resources/env/pre/wfj-netty.properties</filter>
 				</filters>
 			</build>
-			<properties>
-				<resources.active>pre</resources.active>
-			</properties>
 		</profile>
 	</profiles>
 	<dependencies>
@@ -206,11 +194,9 @@
 					<include>application.properties</include>
 					<include>system.properties</include>
 					<include>wfj-netty.properties</include>
+					<include>nettyserver.xml</include>
 				</includes>
 				<filtering>true</filtering>
-			</resource>
-			<resource>
-				<directory>src/main/resources/env/${resources.active}</directory>
 			</resource>
 		</resources>
 		<plugins>
