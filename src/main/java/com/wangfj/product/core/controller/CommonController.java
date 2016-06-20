@@ -2,9 +2,11 @@ package com.wangfj.product.core.controller;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
+import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +38,7 @@ public class CommonController extends BaseController {
 	private RedisUtil redisUtil;
 
 	private static final Logger logger = LoggerFactory.getLogger(CommonController.class);
-	
+
 	@RequestMapping("/reset")
 	@ResponseBody
 	public Map<String, Object> reset() throws Exception {
@@ -77,6 +79,21 @@ public class CommonController extends BaseController {
 	}
 
 	/**
+	 * 批量删缓存 例如 pcm_getPrice*
+	 * @Methods Name redisSpuCMSSHopperInfo
+	 * @Create In 2016年6月14日 By kongqf
+	 * @param para void
+	 */
+	@RequestMapping("/batdelCache")
+	@ResponseBody
+	public void redisSpuCMSSHopperInfo(@RequestBody RedisVo para) {
+		List<String> list = redisUtil.getKeys(para.getKey());
+		for (String str : list) {
+			logger.warn(str + ":" + redisUtil.del(str));
+		}
+	}
+
+	/**
 	 * 清理价格缓存
 	 * 
 	 * @Methods Name clearpricercache
@@ -94,50 +111,50 @@ public class CommonController extends BaseController {
 	@RequestMapping(value = "/cacheDelTest", method = RequestMethod.POST)
 	@ResponseBody
 	public String cacheDelTest(@RequestBody RedisVo para) {
-//		if (utils.cacheFlag) {
-			boolean setFlag = redisUtil.set("testdel", "1111");
-			boolean delFlag = redisUtil.del("testdel");
-			System.out.println("setFlag:" + setFlag);
-			System.out.println("delFlag:" + delFlag);
-//		}
+		// if (utils.cacheFlag) {
+		boolean setFlag = redisUtil.set("testdel", "1111");
+		boolean delFlag = redisUtil.del("testdel");
+		System.out.println("setFlag:" + setFlag);
+		System.out.println("delFlag:" + delFlag);
+		// }
 
 		return utils.cacheFlag + "";
 	}
-	
+
 	@RequestMapping(value = "/flushCdn", method = RequestMethod.POST)
 	@ResponseBody
 	public String flushCdn(@RequestBody CdnPara cdnPara) {
-		
-		String varnishIp=PropertyUtil.getSystemUrl("varniship");
-		String result=HttpUtil.doPost(varnishIp, cdnPara.getFlushPath());
-		if(result.contains("successful")){
-			String order=PropertyUtil.getSystemUrl("orderStr");
-//			String order="python  /opt/cdn/cdnapi.py dir ";
-			String infoStr="";
+
+		String varnishIp = PropertyUtil.getSystemUrl("varniship");
+		String result = HttpUtil.doPost(varnishIp, cdnPara.getFlushPath());
+		if (result.contains("successful")) {
+			String order = PropertyUtil.getSystemUrl("orderStr");
+			// String order="python /opt/cdn/cdnapi.py dir ";
+			String infoStr = "";
 			Process proc;
 			try {
-				proc = Runtime.getRuntime().exec(order+cdnPara.getFlushPath());
-				BufferedReader in = new BufferedReader(new  
-	                    InputStreamReader(proc.getInputStream()));  
-	            String line;  
-	            while ((line = in.readLine()) != null) {  
-	            	infoStr=infoStr+line;
-	            }
-	            in.close();
-				proc.waitFor(); 
-				if(infoStr.contains("success")){
+				proc = Runtime.getRuntime().exec(order + cdnPara.getFlushPath());
+				BufferedReader in = new BufferedReader(
+						new InputStreamReader(proc.getInputStream()));
+				String line;
+				while ((line = in.readLine()) != null) {
+					infoStr = infoStr + line;
+				}
+				in.close();
+				proc.waitFor();
+				if (infoStr.contains("success")) {
 					return "true";
-				}else{
+				} else {
 					logger.error(infoStr);
 					return "false";
 				}
-			}catch (Exception e) {
+			} catch (Exception e) {
 				logger.error(e.getMessage());
 				return "false";
 			}
-		}else{
+		} else {
 			return "false";
 		}
-		
+
 	}
 }
