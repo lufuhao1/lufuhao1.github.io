@@ -140,6 +140,9 @@ public class ErpProductController extends BaseController {
 	@ResponseBody
 	public Map<String, Object> findErpProductFromPcmPage(@RequestBody Map<String, Object> para) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
+		if(para.get("sid") != null){
+			paramMap.put("erpSid", para.get("sid"));
+		}
 		if (para.get("cateList") != null) {
 			paramMap.put("cateList", para.get("cateList"));
 		}
