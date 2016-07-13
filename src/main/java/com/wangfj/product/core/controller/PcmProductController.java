@@ -18,7 +18,7 @@ import com.wangfj.product.maindata.service.intf.IPcmProductTypeDictService;
 import com.wangfj.product.maindata.service.intf.IPcmShoppeProductService;
 import com.wangfj.util.Constants;
 import com.wangfj.util.mq.PublishDTO;
-import com.wfj.platform.util.zookeeper.discovery.SpringMvcServiceProvider;
+import com.wfj.search.utils.zookeeper.discovery.SpringWebMvcServiceProvider;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
@@ -50,7 +50,7 @@ public class PcmProductController extends BaseController {
     @Autowired
     private ThreadPoolTaskExecutor taskExecutor;
     @Autowired
-    private SpringMvcServiceProvider provider;
+    private SpringWebMvcServiceProvider provider;
 
     List<PublishDTO> sidList = null;
 
@@ -251,7 +251,8 @@ public class PcmProductController extends BaseController {
             para.setPageSize(10);
         }
         try {
-            String serviceAddress = provider.provideServiceAddress("pcm-item-query");
+            String serviceAddress = provider.provideServiceAddress("pcm-item-query").orNull();
+            // TODO if serviceAddress is null
             SearchShoppeProductQueryDto dto = new SearchShoppeProductQueryDto();
             BeanUtils.copyProperties(para, dto);
             String json = HttpUtil.doPost(serviceAddress, JsonUtil.getJSONString(dto));

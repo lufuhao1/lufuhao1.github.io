@@ -17,7 +17,7 @@ import com.wangfj.product.stocks.domain.vo.*;
 import com.wangfj.product.stocks.service.intf.IPcmStockChangeRecordService;
 import com.wangfj.product.stocks.service.intf.IPcmStockService;
 import com.wangfj.util.Constants;
-import com.wfj.platform.util.zookeeper.discovery.SpringMvcServiceProvider;
+import com.wfj.search.utils.zookeeper.discovery.SpringWebMvcServiceProvider;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.apache.commons.beanutils.BeanUtils;
@@ -55,7 +55,7 @@ public class PcmStockAdminController extends BaseController {
     private IPcmStockChangeRecordService pcmStockChangeService;
 
     @Autowired
-    private SpringMvcServiceProvider provider;
+    private SpringWebMvcServiceProvider provider;
 
     @Autowired
     private IPcmChannelService channelService;
@@ -261,7 +261,8 @@ public class PcmStockAdminController extends BaseController {
                 dto.setPageSize(paraPageSize);
             }
             //从搜索查询专柜商品
-            String serviceAddress = provider.provideServiceAddress("pcm-item-query");
+            String serviceAddress = provider.provideServiceAddress("pcm-item-query").orNull();
+            // TODO if serviceAddress is null
             String json = HttpUtil.doPost(serviceAddress, JsonUtil.getJSONString(dto));
             if (com.wangfj.core.utils.StringUtils.isNotEmpty(json)) {
                 JSONObject jsonObject = JSONObject.fromObject(json);

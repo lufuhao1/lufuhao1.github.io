@@ -17,7 +17,7 @@ import com.wangfj.product.core.controller.support.PcmShopBrandPara;
 import com.wangfj.product.core.controller.support.SelectPcmBrandPagePara;
 import com.wangfj.product.core.controller.util.*;
 import com.wangfj.util.Constants;
-import com.wfj.platform.util.zookeeper.discovery.SpringMvcServiceProvider;
+import com.wfj.search.utils.zookeeper.discovery.SpringWebMvcServiceProvider;
 import net.sf.json.JSONObject;
 import org.apache.commons.beanutils.BeanUtils;
 import org.slf4j.Logger;
@@ -53,7 +53,7 @@ public class PcmBrandController extends BaseController {
     private static final Logger logger = LoggerFactory.getLogger(PcmBrandController.class);
 
     @Autowired
-    private SpringMvcServiceProvider provider;
+    private SpringWebMvcServiceProvider provider;
 
     @Autowired
     private IPcmBrandService brandService;
@@ -585,7 +585,8 @@ public class PcmBrandController extends BaseController {
             paramMap.put("prefix", prefix.trim());
         }
         try {
-            String serviceAddress = provider.provideServiceAddress("pcm-list-brand");
+            String serviceAddress = provider.provideServiceAddress("pcm-list-brand").orNull();
+            // TODO if serviceAddress is null
 //            String json = HttpUtil.HttpGetByUtfNoMenthod(serviceAddress, "", paramMap);
             String json = com.wangfj.product.core.controller.util.HttpClientUtil.doPost(serviceAddress, paramMap, "UTF-8");
             return json;

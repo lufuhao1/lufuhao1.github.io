@@ -13,7 +13,7 @@ import com.wangfj.product.supplier.domain.vo.PcmSupplyInfoPartDto;
 import com.wangfj.product.supplier.domain.vo.PcmSupplyInfoQueryDto;
 import com.wangfj.product.supplier.domain.vo.PcmSupplyInfoResultDto;
 import com.wangfj.product.supplier.service.intf.IPcmSupplyInfoService;
-import com.wfj.platform.util.zookeeper.discovery.SpringMvcServiceProvider;
+import com.wfj.search.utils.zookeeper.discovery.SpringWebMvcServiceProvider;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -45,7 +45,7 @@ public class PcmSupplyInfoController extends BaseController {
     private IPcmSupplyInfoService supplyInfoService;
 
     @Autowired
-    private SpringMvcServiceProvider provider;
+    private SpringWebMvcServiceProvider provider;
 
     /**
      * 从搜索查询供应商列表
@@ -70,7 +70,8 @@ public class PcmSupplyInfoController extends BaseController {
             paramMap.put("storeCode", storeCode.trim());
         }
         try {
-            String serviceAddress = provider.provideServiceAddress("pcm-list-supplier");
+            String serviceAddress = provider.provideServiceAddress("pcm-list-supplier").orNull();
+            // TODO if serviceAddress is null
             if (StringUtils.isNotEmpty(serviceAddress)) {
                 String json = HttpUtil.HttpGetByUtfNoMenthod(serviceAddress, "", paramMap);
                 return json;

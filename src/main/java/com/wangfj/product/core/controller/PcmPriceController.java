@@ -16,7 +16,7 @@ import com.wangfj.product.organization.service.intf.IPcmChannelService;
 import com.wangfj.product.price.domain.vo.*;
 import com.wangfj.product.price.service.intf.IPcmPriceService;
 import com.wangfj.util.Constants;
-import com.wfj.platform.util.zookeeper.discovery.SpringMvcServiceProvider;
+import com.wfj.search.utils.zookeeper.discovery.SpringWebMvcServiceProvider;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.apache.commons.beanutils.BeanUtils;
@@ -51,7 +51,7 @@ public class PcmPriceController extends BaseController {
     private IPcmPriceService pcmPriceService;
 
     @Autowired
-    private SpringMvcServiceProvider provider;
+    private SpringWebMvcServiceProvider provider;
 
     @Autowired
     private IPcmChannelService channelService;
@@ -156,7 +156,8 @@ public class PcmPriceController extends BaseController {
                 dto.setPageSize(paraPageSize);
             }
             //从搜索查询专柜商品
-            String serviceAddress = provider.provideServiceAddress("pcm-item-query");
+            String serviceAddress = provider.provideServiceAddress("pcm-item-query").orNull();
+            // TODO if serviceAddress is null
             String json = HttpUtil.doPost(serviceAddress, JsonUtil.getJSONString(dto));
             if (StringUtils.isNotEmpty(json)) {
                 JSONObject jsonObject = JSONObject.fromObject(json);
