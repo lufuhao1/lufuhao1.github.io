@@ -93,10 +93,10 @@
         <constructor-arg name="basePath" value="${discovery.basePath}" />
 	</bean>
 
-	<context:component-scan base-package="com.wfj.search.demo">
+<!-- 	<context:component-scan base-package="com.wfj.search.demo">
 		<context:exclude-filter type="annotation"
 			expression="org.springframework.stereotype.Controller" />
-	</context:component-scan>
+	</context:component-scan> -->
 	<!-- 缓存自动提交 -->
 	<mvc:interceptors>
 		<mvc:interceptor>
