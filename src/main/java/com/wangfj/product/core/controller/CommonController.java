@@ -2,6 +2,7 @@ package com.wangfj.product.core.controller;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,6 +21,7 @@ import com.wangfj.core.cache.RedisVo;
 import com.wangfj.core.framework.base.controller.BaseController;
 import com.wangfj.core.utils.CacheUtils;
 import com.wangfj.core.utils.HttpUtil;
+import com.wangfj.core.utils.JsonUtil;
 import com.wangfj.core.utils.PropertyConfigurer;
 import com.wangfj.core.utils.PropertyUtil;
 import com.wangfj.core.utils.RedisUtil;
@@ -80,9 +82,11 @@ public class CommonController extends BaseController {
 
 	/**
 	 * 批量删缓存 例如 pcm_getPrice*
+	 * 
 	 * @Methods Name redisSpuCMSSHopperInfo
 	 * @Create In 2016年6月14日 By kongqf
-	 * @param para void
+	 * @param para
+	 *            void
 	 */
 	@RequestMapping("/batdelCache")
 	@ResponseBody
@@ -91,6 +95,32 @@ public class CommonController extends BaseController {
 		for (String str : list) {
 			logger.warn(str + ":" + redisUtil.del(str));
 		}
+	}
+
+	/**
+	 * 根据key批量删除缓存
+	 * 
+	 * @Methods Name batchCleanCache
+	 * @Create In 2016年8月13日 By kongqf
+	 * @param para
+	 *            void
+	 */
+	@RequestMapping("/batchCleanCache")
+	@ResponseBody
+	public String batchCleanCache(@RequestBody List<String> keys) {
+		Map<String, String> resultMap = new HashMap<String, String>();
+		boolean delResult = false;
+		if (keys != null && keys.size() > 0) {
+			for (String key : keys) {
+				delResult = false;
+				String value = redisUtil.get(key, "0000");
+				if (!"0000".equals(value)) {
+					delResult = redisUtil.del(key);
+					resultMap.put(key, "delResult:" + delResult);
+				}
+			}
+		}
+		return JsonUtil.getJSONString(resultMap);
 	}
 
 	/**
