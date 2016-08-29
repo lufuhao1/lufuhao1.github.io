@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Map;
@@ -33,7 +34,7 @@ public class PcmStoreInfoController extends BaseController {
      * @return
      */
     @ResponseBody
-    @RequestMapping(value = {"/findPageStoreInfo"})
+    @RequestMapping(value = {"/findPageStoreInfo"}, method = {RequestMethod.GET, RequestMethod.POST})
     public Map<String, Object> findPageStoreInfo(@RequestBody PcmStoreInfoQueryPara para) {
         PcmStoreInfoQueryDto queryDto = new PcmStoreInfoQueryDto();
         org.springframework.beans.BeanUtils.copyProperties(para, queryDto);
@@ -41,9 +42,6 @@ public class PcmStoreInfoController extends BaseController {
         Page<PcmStoreInfoResultDto> pageStoreInfo = storeInfoService.findPageStoreInfo(queryDto);
         return ResultUtil.creComSucResult(pageStoreInfo);
     }
-
-
-
 
 
 }
