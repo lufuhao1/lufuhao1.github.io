@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -41,6 +42,21 @@ public class PcmStoreInfoController extends BaseController {
 
         Page<PcmStoreInfoResultDto> pageStoreInfo = storeInfoService.findPageStoreInfo(queryDto);
         return ResultUtil.creComSucResult(pageStoreInfo);
+    }
+
+    /**
+     * 查询门店信息List
+     *
+     * @param para
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = {"/findListStoreInfo"}, method = {RequestMethod.GET, RequestMethod.POST})
+    public Map<String, Object> findListStoreInfo(@RequestBody PcmStoreInfoQueryPara para) {
+        PcmStoreInfoQueryDto queryDto = new PcmStoreInfoQueryDto();
+        org.springframework.beans.BeanUtils.copyProperties(para, queryDto);
+        List<PcmStoreInfoResultDto> listStoreInfo = storeInfoService.findListStoreInfo(queryDto);
+        return ResultUtil.creComSucResult(listStoreInfo);
     }
 
 
