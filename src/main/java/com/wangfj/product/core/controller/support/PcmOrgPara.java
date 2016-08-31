@@ -14,7 +14,7 @@ public class PcmOrgPara {
     @NotNull(message = "{PcmOrgPara.groupSid.notNull}")
     private Long groupSid;/* 所属集团sid */
 
-    @Pattern(regexp = "^[1-9]{1}[0-9]{0,17}$", message = "{PcmOrgPara.organizationCode.format}")
+//    @Pattern(regexp = "^[1-9]{1}[0-9]{0,17}$", message = "{PcmOrgPara.organizationCode.format}")
     private String organizationCode;/* 机构编码 */
 
     @NotNull(message = "{PcmOrgPara.organizationName.notNull}")
