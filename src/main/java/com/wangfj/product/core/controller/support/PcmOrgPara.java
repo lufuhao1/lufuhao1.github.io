@@ -41,40 +41,22 @@ public class PcmOrgPara {
     /**
      * 门店信息(新加表字段)
      */
-    @NotNull(message = "{PcmOrgPara.registeredAddress.notNull}")
-    @Size(min = 1, message = "{PcmOrgPara.registeredAddress.notNull}")
     private String registeredAddress;//注册地址
 
-    @NotNull(message = "{PcmOrgPara.postCode.notNull}")
-    @Pattern(regexp = "^[1-9]\\d{5}$", message = "{PcmOrgPara.postCode.format}")
     private String postCode;//邮编
 
-    @NotNull(message = "{PcmOrgPara.legalRepresentative.notNull}")
-    @Pattern(regexp = "^[A-Za-z\\.\\s\u4e00-\u9fa5]{1,20}$", message = "{PcmOrgPara.legalRepresentative.format}")
     private String legalRepresentative;//法定代表人
 
-    @NotNull(message = "{PcmOrgPara.agent.notNull}")
-    @Pattern(regexp = "^[A-Za-z\\.\\s\u4e00-\u9fa5]{1,20}$", message = "{PcmOrgPara.agent.format}")
     private String agent;//委托代理人
 
-    @NotNull(message = "{PcmOrgPara.taxRegistrationNumber.notNull}")
-    @Pattern(regexp = "^[A-Za-z0-9]{1,20}$", message = "{PcmOrgPara.taxRegistrationNumber.format}")
     private String taxRegistrationNumber;//税务登记号
 
-    @NotNull(message = "{PcmOrgPara.bank.notNull}")
-    @Size(min = 1, message = "{PcmOrgPara.bank.notNull}")
     private String bank;//开户行
 
-    @NotNull(message = "{PcmOrgPara.bankAccount.notNull}")
-    @Pattern(regexp = "^[A-Za-z0-9]{1,30}$", message = "{PcmOrgPara.bankAccount.format}")
     private String bankAccount;//开户行账号
 
-    @NotNull(message = "{PcmOrgPara.telephoneNumber.notNull}")
-    @Pattern(regexp = "^\\d{3}-\\d{8}|\\d{4}-\\d{7}$", message = "{PcmOrgPara.telephoneNumber.format}")
     private String telephoneNumber;//电话(区号+座机)
 
-    @NotNull(message = "{PcmOrgPara.faxNumber.notNull}")
-    @Size(min = 1, message = "{PcmOrgPara.faxNumber.notNull}")
     private String faxNumber;//传真(区号+座机)
 
     private String field1;//预留字段
