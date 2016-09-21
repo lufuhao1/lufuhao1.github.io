@@ -1,11 +1,16 @@
 package test.com.wangfj.product.controller;
 
+import org.apache.commons.codec.binary.Base64;
 import org.junit.Test;
 
 import com.wangfj.core.utils.HttpUtil;
 import com.wangfj.core.utils.JsonUtil;
 import com.wangfj.product.core.controller.support.PcmOrgPara;
 import com.wangfj.product.core.controller.support.SelectPcmOrganizationPara;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.UnsupportedEncodingException;
 
 /**
  * 组织机构测试
@@ -15,6 +20,20 @@ import com.wangfj.product.core.controller.support.SelectPcmOrganizationPara;
  * @Create In 2015-8-18
  */
 public class TestPcmOrganizationMainController {
+
+    private static final Logger logger = LoggerFactory.getLogger(TestPcmOrganizationMainController.class);
+
+    @Test
+    public void testBase64() {
+        String organizationCode = "21011";
+        try {
+            byte[] encodeBase64 = Base64.encodeBase64(organizationCode.getBytes("UTF-8"));
+            System.out.println(new String(encodeBase64));//门店标识
+        } catch (UnsupportedEncodingException e) {
+            logger.info("添加门店生成门店标识获得门店编码字节码异常" + e.getMessage());
+        }
+    }
+
 
     @Test
     public void saveOrUpdateOrg() {
