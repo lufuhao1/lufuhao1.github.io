@@ -8,6 +8,9 @@ package com;
 public class Test {
 	public static void mian(String[] args){
 		for(int i=0;i<10;i++){
+			for(;;){
+				
+			}
 		}
 	}
 
