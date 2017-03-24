@@ -7,7 +7,7 @@ import java.util.*;
  * Author:接口，链接数据库 Day:2016年8月26日 Time:下午5:24:01 Functions:
  *****************/
 public interface Data {
-	//增删改 操作 
+	//增删改操作 
 	int zsg(String sal) throws SQLException;
    //查询数据  返回集合显示
 	List<Map<String, String>> cha(String sql) throws SQLException;
