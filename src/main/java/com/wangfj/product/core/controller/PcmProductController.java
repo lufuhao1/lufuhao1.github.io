@@ -37,7 +37,8 @@ import java.util.Map;
 @Controller
 @RequestMapping("/product")
 public class PcmProductController extends BaseController {
-    @Autowired
+	
+    @Autowired   //##(原来就有)
     private IPcmShoppeProductService proService;
     @Autowired
     private IPcmProductService spuService;
@@ -953,5 +954,9 @@ public class PcmProductController extends BaseController {
                 JsonUtil.getJSONString(paramMap));
         return response;
     }
-
+    
+    /**
+     * OMS通过专柜商品从pcm批量查询商品信息  ***********OPS*********
+     */
+    
 }

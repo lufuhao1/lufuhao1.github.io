@@ -27,7 +27,7 @@ public class TpSynCategoryController {
 	private ISCategoryService categoryService;
 
 	/**
-	 * tp1 同步第三方平台(天猫,当当等渠道)的品类信息
+	 * tp1 同步第三方平台(天猫,当当等渠道)的品类信息  ************
 	 * 
 	 * @param model
 	 * @param request

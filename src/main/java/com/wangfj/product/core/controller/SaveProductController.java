@@ -26,7 +26,7 @@ import com.wangfj.product.maindata.service.intf.IValidProductService;
 import com.wangfj.util.mq.PublishDTO;
 
 /**
- * 添加商品
+ * 添加商品                     ********商品的添加*********
  * 
  * @Class Name SaveProductController
  * @Author zhangxy
@@ -93,5 +93,7 @@ public class SaveProductController extends BaseController {
 				+ "/saveProduct/saveShoppeProductDs.htm";
 		String response = HttpUtil.doPost(url, JsonUtil.getJSONString(data));
 		return response;
+		
+	
 	}
 }

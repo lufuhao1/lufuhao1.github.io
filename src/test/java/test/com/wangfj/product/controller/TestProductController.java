@@ -13,10 +13,10 @@ public class TestProductController {
 
 	@Test
 	public void test() {
-		// updateProductCategory();
-		// updateProductShoppe();
-		// updateProductRateCode();
-		// savePromotionRate();
+		/* updateProductCategory();
+		 updateProductShoppe();
+		 updateProductRateCode();
+		 savePromotionRate();*/
 	}
 
 	// 产品更换工业分类

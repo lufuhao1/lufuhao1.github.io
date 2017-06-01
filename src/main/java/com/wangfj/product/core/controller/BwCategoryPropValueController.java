@@ -225,7 +225,7 @@ public class BwCategoryPropValueController extends BaseController {
 			CategoryPropsValuePara propvalue) {
 
 		String url = PropertyUtil.getSystemUrl("pcm-admin") + "propvaluecontroller/bw/addd.htm";
-		String response = HttpUtil.doPost(url, JsonUtil.getJSONString(propvalue));
+		String response = HttpUtil.doPost(url, JsonUtil.getJSONString(propvalue));// 判断用户权限
 		return response;
 	}
 

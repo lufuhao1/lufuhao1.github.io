@@ -140,13 +140,13 @@ public class TestPcmSupplyInfoController {
 		PcmSupplyInfoInAdminPara supplyInfoPara = new PcmSupplyInfoInAdminPara();
 
 		// supplyInfoPara.setTaxRate("17.00000");
-		supplyInfoPara.setSupplyName("王府井的联想供应商");
+		supplyInfoPara.setSupplyName("数字创新的联想供应商");
 		supplyInfoPara.setSupplyCode("1001000023");
 
-		supplyInfoPara.setShopSid("40001");
+		supplyInfoPara.setShopSid("40002");
 
 		supplyInfoPara.setAddress("中国");
-		supplyInfoPara.setAdmissionDate("20150808");
+		supplyInfoPara.setAdmissionDate("20170808");
 		supplyInfoPara.setAgent("代理人");
 		supplyInfoPara.setAgentContact("代理人联系方式");
 		supplyInfoPara.setAgentIcCode("代理人身份证号");

@@ -18,7 +18,7 @@ import com.wfj.netty.Server;
 public class ServerControlHandler {
 	private static Logger log = LoggerFactory.getLogger("ServerControlHandler");
 
-	private static Server server;
+	private static Server server; 
 
 	public static void main(String[] args) throws Exception {
 		if (args != null && args.length != 0 && (args[0].equals("stop"))) {
