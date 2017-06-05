@@ -8,7 +8,13 @@
 	<packaging>jar</packaging>
 
 	<name>pcm-admin-sdc</name>
-	
+	<repositories>
+		<repository>
+		<id>nexus</id>
+		<name>Team Nexus Repository</name>
+		<url>http://192.168.10.22:8081/nexus/content/groups/public</url>
+		</repository>
+	</repositories>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<dependency.wfj.platform-utils.version>1.0.8.RELEASE</dependency.wfj.platform-utils.version>
@@ -217,6 +223,7 @@
 				<filtering>true</filtering>
 			</resource>
 		</resources>
+		<pluginManagement>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -259,5 +266,6 @@
 				</executions>
 			</plugin>
 		</plugins>
+		</pluginManagement>
 	</build>
 </project>
