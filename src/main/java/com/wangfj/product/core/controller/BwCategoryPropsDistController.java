@@ -101,6 +101,50 @@ public class BwCategoryPropsDistController extends BaseController{
 		jsons.put("pageCount", pageCount);
 		return jsons.toString();
 	}
+	
+	/**
+	 * 属性字典查询全部
+	 * 
+	 * @Methods Name list
+	 * @Create In 2015年8月6日 By duanzhaole
+	 * @param model
+	 * @param request
+	 * @param response
+	 * @param propsPara
+	 * @return Map<String,Object>
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/bw/propsdictAllList", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json; charset=utf-8")
+	public String allList(@RequestBody CategoryPropsDictPara propsPara) {
+		JSONObject jsons = new JSONObject();
+		PcmCategoryPropsDict scp = new PcmCategoryPropsDict();
+		// 获取参数
+		String propsName = propsPara.getPropsName();
+		String propsDesc = propsPara.getPropsDesc();
+		String channelSid = propsPara.getChannelSid();
+		if (!(propsName == null || "".equals(propsName))) {
+			if(propsName.indexOf("%") != -1 || propsName.indexOf("_") != -1){
+				String newPropsName = propsName.replaceAll("%", "\\\\%");	
+				if(propsName.indexOf("_") != -1){
+					newPropsName = newPropsName.replaceAll("_", "\\\\_");
+				}
+				scp.setPropsName(newPropsName);
+			}else{
+				scp.setPropsName(propsName);
+			}
+		}
+		if (!(propsDesc == null || "".equals(propsDesc))) {
+			scp.setPropsDesc(propsDesc);
+		}
+		if (!(channelSid == null || "".equals(channelSid))) {
+			scp.setChannelSid(Long.valueOf(channelSid));
+		}
+		
+		List lists = this.ssdCategoryPropsDictService.selectAll(scp);
+		jsons.put("list", lists);
+		jsons.put("scusse", true);
+		return jsons.toString();
+	}
 
 	/**
 	 * 属性添加/修改
@@ -204,6 +248,7 @@ public class BwCategoryPropsDistController extends BaseController{
 		scp.setStatus(1L);
 		// 通过属性名称模糊查询
 		scp.setPropsName(propsPara.getPropsName());
+		scp.setIsStockPriceControls(propsPara.getIsStockPriceControls());
 		List<PcmCategoryPropsDict> lists = this.ssdCategoryPropsDictService
 				.selectListInChannelSid(scp);
 		for (PcmCategoryPropsDict scpd : lists) {

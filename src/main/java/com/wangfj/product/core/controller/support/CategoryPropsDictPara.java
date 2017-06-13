@@ -38,6 +38,10 @@ public class CategoryPropsDictPara {
 	 */
 	private String isKeyProp;
 
+	 /**
+     * 是否库存价格控制项
+     */
+    private Integer isStockPriceControls;
 	/**
 	 * 状态：0 可用，1禁用 默认为0
 	 */
@@ -75,6 +79,14 @@ public class CategoryPropsDictPara {
 
 	public void setPropsDesc(String propsDesc) {
 		this.propsDesc = propsDesc;
+	}
+
+	public Integer getIsStockPriceControls() {
+		return isStockPriceControls;
+	}
+
+	public void setIsStockPriceControls(Integer isStockPriceControls) {
+		this.isStockPriceControls = isStockPriceControls;
 	}
 
 	public String getStatus() {
