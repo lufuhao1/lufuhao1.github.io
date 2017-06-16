@@ -33,6 +33,7 @@ import com.wangfj.core.utils.ResultUtil;
 import com.wangfj.product.category.domain.entity.PcmCategory;
 import com.wangfj.product.category.domain.entity.PcmCategoryPropsDict;
 import com.wangfj.product.category.domain.entity.PcmCategoryValuesDict;
+import com.wangfj.product.category.domain.entity.PcmProDetailParameters;
 import com.wangfj.product.category.domain.entity.PcmProductCategory;
 import com.wangfj.product.category.domain.entity.PcmProductParameters;
 import com.wangfj.product.category.domain.vo.JsonCate;
@@ -975,12 +976,14 @@ public class BwCategoryController extends BaseController {
 		return ResultUtil.creComSucResult(count);
 	}
 
+	@SuppressWarnings("unused")
 	@ResponseBody
 	@RequestMapping(value = "/bw/cateListSelect", method = { RequestMethod.GET, RequestMethod.POST }, produces = "application/json; charset=utf-8")
 	public Map<String, Object> cateListSelect(PropValueBySpuPara para, HttpServletRequest request) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("spuSid", para.getSpuSid());
 		List<SaveProductParametersDTO> cateList = productParameterService.cateListSelect(paramMap);
+		List<PcmProDetailParameters> cateList1 = productParameterService.cateListSelect1(paramMap);//查询商品的库存价格控制项
 		if (cateList != null && cateList.size() != 0) {
 			return ResultUtil.creComSucResult(cateList);
 		} else {
