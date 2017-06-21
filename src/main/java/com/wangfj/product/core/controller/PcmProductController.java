@@ -450,9 +450,6 @@ public class PcmProductController extends BaseController {
         if (StringUtils.isBlank(para.getSkuCode())) {
             pageDto.setSkuCode(null);
         }
-        if (StringUtils.isBlank(para.getSpuCode())) {
-            pageDto.setSpuCode(null);
-        }
         if (StringUtils.isBlank(para.getColorSid())) {
             pageDto.setColorSid(null);
         }
