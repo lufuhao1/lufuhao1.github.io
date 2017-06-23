@@ -1037,4 +1037,21 @@ public class BwCategoryController extends BaseController {
 		return ResultUtil.creComSucResult(list);
 	}
 
+	/**
+	 * 查询是否为末级节点
+	 * 
+	 * @Methods Name 
+	 * @Create In 2016年2月29日 By wangxuan
+	 * @param para
+	 * @return Map<String,Object>
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/bw/selectCateproyByIsLesf", method = { RequestMethod.GET,
+			RequestMethod.POST }, produces = "application/json; charset=utf-8")
+	public Map<String, Object> selectCateproyByIsLesf(String cid) {
+		
+		String leafs=IcategoryService.selectCateproyByIsLesf(cid);
+		return ResultUtil.creComSucResult(leafs);
+	}
+	
 }
